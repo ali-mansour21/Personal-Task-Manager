@@ -27,7 +27,9 @@ const SignUp = () => {
     };
     sendRequest(requestMethods.POST, "register", credentials).then(
       (response) => {
-        console.log(response);
+        if (response.status === 201) {
+          navigate("/");
+        }
       }
     );
   };
@@ -45,7 +47,7 @@ const SignUp = () => {
           }}
         >
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <Box
             component="form"

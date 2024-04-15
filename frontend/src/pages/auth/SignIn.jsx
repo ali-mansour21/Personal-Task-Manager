@@ -24,7 +24,9 @@ const SignIn = () => {
       password: data.get("password"),
     };
     sendRequest(requestMethods.POST, "login", credentials).then((response) => {
-      console.log(response);
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
+      }
     });
   };
 
