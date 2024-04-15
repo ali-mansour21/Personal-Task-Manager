@@ -2,8 +2,7 @@ import axios from "axios";
 
 const sendRequest = async (method, route, body) => {
   try {
-    axios.defaults.baseURL =
-      "https://b233-185-127-183-112.ngrok-free.app/auth/";
+    axios.defaults.baseURL = "http://localhost:5000/auth/";
 
     const response = await axios.request({
       method: method,
@@ -11,7 +10,6 @@ const sendRequest = async (method, route, body) => {
       data: body,
       headers: {
         "Content-Type": "application/json",
-        
       },
     });
 

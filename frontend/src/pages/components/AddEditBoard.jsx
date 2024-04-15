@@ -10,7 +10,7 @@ const AddEditBoard = ({ setIsBoardModalOpen, type }) => {
       }}
     >
       <div
-        className=" scrollbar-hide overflow-y-scroll max-h-[95vh]  bg-white dark:bg-[#2b2c37] text-black dark:text-white font-bold
+        className="  max-h-[95vh]  bg-white dark:bg-[#2b2c37] text-black dark:text-white font-bold
        shadow-md shadow-[#364e7e1a] max-w-md mx-auto my-auto w-full px-8  py-8 rounded-xl"
       >
         <h3 className=" text-lg ">
@@ -31,34 +31,7 @@ const AddEditBoard = ({ setIsBoardModalOpen, type }) => {
         </div>
 
         <div className="mt-8 flex flex-col space-y-3">
-          <label className=" text-sm dark:text-white text-gray-500">
-            Board Columns
-          </label>
-
-          {/* {newColumns.map((column, index) => (
-            <div key={index} className=" flex items-center w-full ">
-              <input
-                className=" bg-transparent flex-grow px-4 py-2 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-[1px]  "
-                onChange={(e) => {
-                  onChange(column.id, e.target.value);
-                }}
-                type="text"
-                value={column.name}
-              />
-            </div>
-          ))} */}
           <div>
-            <button
-              className=" w-full items-center hover:opacity-70 dark:text-[#635fc7] dark:bg-white  text-white bg-[#635fc7] py-2 rounded-full "
-              //   onClick={() => {
-              //     setNewColumns((state) => [
-              //       ...state,
-              //       { name: "", tasks: [], id: uuidv4() },
-              //     ]);
-              //   }}
-            >
-              + Add New Column
-            </button>
             <button className=" w-full items-center hover:opacity-70 dark:text-white dark:bg-[#635fc7] mt-8 relative  text-white bg-[#635fc7] py-2 rounded-full">
               {type === "add" ? "Create New Board" : "Save Changes"}
             </button>

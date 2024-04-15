@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import AddEditBoard from "./AddEditBoard";
 import Sidebar from "./Sidebar";
+import sendAuthRequest from "../../core/tools/authRequest";
+import { requestMethods } from "../../core/requests/requestMethod";
 const Home = () => {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
 
-//   const boards = useSelector((state) => state.boards);
-//   const board = boards.find((board) => board.isActive === true);
-//   const columns = board.columns;
-
+  //   const boards = useSelector((state) => state.boards);
+  //   const board = boards.find((board) => board.isActive === true);
+  //   const columns = board.columns;
+  const getBoards = () => {
+    sendAuthRequest(requestMethods.GET, "boards").then((response) => {
+      console.log(response);
+    });
+  };
+  useEffect(() => {
+    getBoards();
+  }, []);
   return (
     <div className=" bg-[#f4f7fd]  scrollbar-hide h-screen flex dark:bg-[#20212c]  overflow-x-scroll gap-6  ml-[261px]">
       <Sidebar

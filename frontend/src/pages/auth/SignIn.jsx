@@ -26,6 +26,7 @@ const SignIn = () => {
     sendRequest(requestMethods.POST, "login", credentials).then((response) => {
       if (response.status === 200) {
         localStorage.setItem("token", response.data.token);
+        navigate("/home");
       }
     });
   };

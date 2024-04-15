@@ -2,7 +2,7 @@ import axios from "axios";
 
 const sendAuthRequest = async (method, route, body) => {
   try {
-    axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
+    axios.defaults.baseURL = "http://localhost:5000/";
 
     const response = await axios.request({
       method: method,
