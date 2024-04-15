@@ -10,6 +10,8 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@mui/material";
+import sendRequest from "../../core/tools/userRequest";
+import { requestMethods } from "../../core/requests/requestMethod";
 
 const defaultTheme = createTheme();
 
@@ -22,7 +24,12 @@ const SignUp = () => {
       username: data.get("username"),
       email: data.get("email"),
       password: data.get("password"),
-    }
+    };
+    sendRequest(requestMethods.POST, "register", credentials).then(
+      (response) => {
+        console.log(response);
+      }
+    );
   };
 
   return (
