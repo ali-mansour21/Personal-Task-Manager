@@ -4,16 +4,22 @@ const boardsSlice = createSlice({
   name: "boards",
   initialState: [],
   reducers: {
-    addBoard: (state, action) => {
+    loadBoards: (state, action) => {
+      console.log("Payload:", action.payload); // Debugging
+
       const isActive = state.length > 0 ? false : true;
-      const payload = action.payload;
-      const board = {
-        name: payload.name,
-        isActive,
-        columns: [],
-      };
-      board.columns = payload.newColumns;
-      state.push(board);
+      const { payload } = action;
+
+      payload.forEach((boardData) => {
+        const board = {
+          title: boardData.title,
+          isActive,
+          columns: boardData.columns,
+        };
+        state.push(board);
+      });
+
+      console.log("State after loading boards:", [...state]); // Debugging
     },
     setBoardActive: (state, action) => {
       state.map((board, index) => {
@@ -34,3 +40,4 @@ const boardsSlice = createSlice({
 });
 
 export default boardsSlice;
+export const { loadBoards } = boardsSlice.actions;

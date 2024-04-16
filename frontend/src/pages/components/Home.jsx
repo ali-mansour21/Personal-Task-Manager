@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddEditBoard from "./AddEditBoard";
 import Sidebar from "./Sidebar";
 import sendAuthRequest from "../../core/tools/authRequest";
 import { requestMethods } from "../../core/requests/requestMethod";
+import { loadBoards } from "../../redux/boardsSlice";
+import Column from "./Column";
 const Home = () => {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  //   const boards = useSelector((state) => state.boards);
-  //   const board = boards.find((board) => board.isActive === true);
-  //   const columns = board.columns;
+  const boards = useSelector((state) => state.boards);
+  console.log(boards);
+  const board = boards?.find((board) => board.isActive === true);
+  console.log(board);
+  const columns = board?.columns;
+  console.log(columns);
   const getBoards = () => {
     sendAuthRequest(requestMethods.GET, "boards").then((response) => {
-      console.log(response);
+      console.log(response.data);
+      const boardsData = response.data;
+      dispatch(loadBoards(boardsData));
     });
   };
   useEffect(() => {
@@ -24,9 +32,9 @@ const Home = () => {
         setIsBoardModalOpen={setIsBoardModalOpen}
         isBoardModalOpen={isBoardModalOpen}
       />
-      {/* {columns.length > 0 && (
+      {columns?.length > 0 && (
         <>
-          {columns.map((col, index) => (
+          {columns?.map((col, index) => (
             <Column key={index} colIndex={index} />
           ))}
           <div
@@ -38,7 +46,7 @@ const Home = () => {
             + New Column
           </div>
         </>
-      )} */}
+      )}
       {isBoardModalOpen && (
         <AddEditBoard type="edit" setIsBoardModalOpen={setIsBoardModalOpen} />
       )}
