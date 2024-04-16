@@ -5,21 +5,25 @@ const boardsSlice = createSlice({
   initialState: [],
   reducers: {
     loadBoards: (state, action) => {
-      console.log("Payload:", action.payload); // Debugging
-
-      const isActive = state.length > 0 ? false : true;
       const { payload } = action;
+      let firstBoardProcessed = false;
 
       payload.forEach((boardData) => {
+        const isActive = !firstBoardProcessed;
+
         const board = {
+          id: boardData._id,
           title: boardData.title,
           isActive,
           columns: boardData.columns,
         };
-        state.push(board);
-      });
 
-      console.log("State after loading boards:", [...state]); // Debugging
+        state.push(board);
+
+        if (!firstBoardProcessed) {
+          firstBoardProcessed = true;
+        }
+      });
     },
     setBoardActive: (state, action) => {
       state.map((board, index) => {

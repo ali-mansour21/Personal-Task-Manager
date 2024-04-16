@@ -6,16 +6,14 @@ import sendAuthRequest from "../../core/tools/authRequest";
 import { requestMethods } from "../../core/requests/requestMethod";
 import { loadBoards } from "../../redux/boardsSlice";
 import Column from "./Column";
+import Header from "./Header";
 const Home = () => {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const boards = useSelector((state) => state.boards);
-  console.log(boards);
   const board = boards?.find((board) => board.isActive === true);
-  console.log(board);
   const columns = board?.columns;
-  console.log(columns);
   const getBoards = () => {
     sendAuthRequest(requestMethods.GET, "boards").then((response) => {
       console.log(response.data);
@@ -32,6 +30,7 @@ const Home = () => {
         setIsBoardModalOpen={setIsBoardModalOpen}
         isBoardModalOpen={isBoardModalOpen}
       />
+      <Header />
       {columns?.length > 0 && (
         <>
           {columns?.map((col, index) => (
@@ -48,7 +47,11 @@ const Home = () => {
         </>
       )}
       {isBoardModalOpen && (
-        <AddEditBoard type="edit" setIsBoardModalOpen={setIsBoardModalOpen} />
+        <AddEditBoard
+          type="edit"
+          reloadBoards={getBoards}
+          setIsBoardModalOpen={setIsBoardModalOpen}
+        />
       )}
     </div>
   );

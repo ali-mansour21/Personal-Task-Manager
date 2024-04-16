@@ -23,8 +23,7 @@ const addTask = async (req, res) => {
   try {
     const userId = req.user;
     const boardId = req.params.boardid;
-    const defaultColumnId = "661d4742fcb9d94f4b4fe3e7"; 
-    const { title, description } = req.body;
+    const { title, description, column_id } = req.body;
 
     const user = await User.findById(userId);
     if (!user) return res.status(404).send("User not found");
@@ -33,7 +32,7 @@ const addTask = async (req, res) => {
     if (!board) return res.status(404).send("Board not found");
 
     const column = board.columns.find(
-      (column) => column._id.toString() === defaultColumnId
+      (column) => column._id.toString() === column_id
     );
 
     if (!column) {

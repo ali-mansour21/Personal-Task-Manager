@@ -1,4 +1,20 @@
-const AddEditBoard = ({ setIsBoardModalOpen, type }) => {
+import { useState } from "react";
+import sendAuthRequest from "../../core/tools/authRequest";
+import { requestMethods } from "../../core/requests/requestMethod";
+
+const AddEditBoard = ({ setIsBoardModalOpen, type, reloadBoards }) => {
+  const [boardData, setBoardData] = useState({
+    title: "",
+  });
+  const createNewBoard = () => {
+    sendAuthRequest(requestMethods.POST, "boards", boardData).then(
+      (response) => {
+        if (response.status === 201) {
+          reloadBoards();
+        }
+      }
+    );
+  };
   return (
     <div
       className="  fixed right-0 top-0 px-2 py-4 overflow-scroll scrollbar-hide  z-50 left-0 bottom-0 justify-center items-center flex dropdown "
@@ -24,15 +40,25 @@ const AddEditBoard = ({ setIsBoardModalOpen, type }) => {
           <input
             className=" bg-transparent  px-4 py-2 rounded-md text-sm  border-[0.5px] border-gray-600 focus:outline-[#635fc7] outline-1  ring-0  "
             placeholder=" e.g Web Design"
-            // value={name}
-            // onChange={(e) => setName(e.target.value)}
-            id="board-name-input"
+            onChange={(e) => {
+              setBoardData({
+                ...boardData,
+                title: e.target.value,
+              });
+            }}
+            id="boardName"
           />
         </div>
 
         <div className="mt-8 flex flex-col space-y-3">
           <div>
-            <button className=" w-full items-center hover:opacity-70 dark:text-white dark:bg-[#635fc7] mt-8 relative  text-white bg-[#635fc7] py-2 rounded-full">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                createNewBoard();
+              }}
+              className=" w-full items-center hover:opacity-70 dark:text-white dark:bg-[#635fc7] mt-8 relative  text-white bg-[#635fc7] py-2 rounded-full"
+            >
               {type === "add" ? "Create New Board" : "Save Changes"}
             </button>
           </div>
